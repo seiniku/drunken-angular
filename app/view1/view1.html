@@ -1,0 +1,35 @@
+<body ng-controller="PotsCtrl">
+    <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-4">
+        <li ng-repeat="pot in pots">
+            <div>
+                {{pot.name}}
+                <br/>
+                <h1>{{pot.temp}}</h1>
+                <div class="switch small">
+                    <input id="{{pot.name + '_168'}}" value="{{pot.name + '_168'}}" type="radio" name="controlGroup" ng-model="$parent.boil">
+                    <label for="{{pot.name + '_168'}}">{{pot.name}}</label>
+                    168
+                </div>
+                <div class="switch small">
+                    <input id="{{pot.name + '_boil'}}"  value="{{pot.name + '_boil'}}" type="radio" name="controlGroup" ng-model="$parent.boil">
+                    <label for="{{pot.name + '_boil'}}">{{pot.name}}</label>
+                    Boil
+                </div>
+                <div ng-cloak   class="range-slider animate-show" data-slider data-options="step: 10; start: 1; end: 100;"  ng-show="boil == '{{pot.name + '_boil'}}'" >
+                    <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                    <span class="range-slider-active-segment"></span>
+                    <input type="hidden">
+                </div>
+            </div>
+        </li>
+        <a href="#" class="button expand">Turn Off</a>
+
+    </ul>
+
+</ul>
+    </div>
+    <script>
+        $(document).foundation();
+        $(window).trigger("resize");
+    </script>
+</body>
