@@ -10,7 +10,7 @@
     "pid_Ti": 0,
     "state": "disabled",
     "target": "154",
-    "temp": "12",
+    "temp": "10",
     "temp_offset": 0,
     "temp_sensor": "28-000004a1c85c",
     "usePid": false
@@ -26,7 +26,7 @@
     "pid_Ti": 0.5,
     "state": "disabled",
     "target": "48",
-    "temp": "0",
+    "temp": "5",
     "temp_offset": 0,
     "temp_sensor": "28-000004a1c85c",
     "usePid": true
