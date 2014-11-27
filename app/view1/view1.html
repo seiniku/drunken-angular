@@ -1,88 +1,24 @@
-<style>
-    slider {
-        display:     block;
-        position:    relative;
-        height:      30px;
-        width:       100%;
-    }
-    slider span.bar {
-        height:     50%;
-        z-index:    0;
-        background: #eee;
-        left:       0;
-        top:        25%;
-        cursor:     pointer;
-    }
-    slider span.bar.selection, slider span.bar.unselected {
-    }
-    slider span.bar.selection {
-        background: #0a0;
-        opacity:    0.5;
-    }
-    slider span.bar.unselected {
-        width:      auto;
-        background: #a00;
-        opacity:    0.5;
-    }
-    slider span.pointer {
-        cursor:           pointer;
-        width:            15px;
-        top:              0;
-        bottom:           0;
-        background-color: #008cba;
-    }
-    slider span.pointer:hover {
-    }
-    slider span.pointer.active {
-    }
-    slider span.bubble {
-        font-size:   0.7em;
-        line-height: 1.4em;
-        font-family: sans-serif;
-        text-align:  center;
-        text-shadow: none;
-        top:         -1.3em;
-        cursor:      pointer;
-    }
-    slider span.bubble.selection, slider span.bubble.limit {
-        top: 25%;
-    }
-    slider span.bubble.selection {
-    }
-    slider span.bubble.limit {
-    }
-    slider span.bubble.low, slider span.bubble.high {
-    }
-
-    ::-ms-tooltip {
-        display: none;
-    }
-    #slider-container {
-        -webkit-touch-callout: none;
-        -webkit-user-select:   none;
-        -khtml-user-select:    none;
-        -moz-user-select:      -moz-none;
-        -ms-user-select:       none;
-        user-select:           none;
-        margin-bottom:         5px;
-    }
-</style>
 <body ng-controller="PotsCtrl">
-<form  role="form" name="controlForm">
+<form role="form" ng-hide="isDisabled" name="controlForm">
+    {{pots[1]}}
     <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-4">
         <li ng-repeat="pot in pots track by pot.name">
             <div>
                 {{pot.name}}
                 <br/>
+
                 <h1>{{pot.temp | number : 1}}</h1>
+
                 <div class="switch small">
 
-                    <input id="{{pot.name + '_168'}}" value="{{pot.name + '_168'}}" type="radio"  ng-model="$parent.boil" ng-click="updateradio()">
+                    <input id="{{pot.name + '_168'}}" value="{{pot.name + '_168'}}" type="radio" ng-model="$parent.boil"
+                           ng-change="updateradio()">
                     <label for="{{pot.name + '_168'}}">{{pot.name}}</label>
                     168
                 </div>
                 <div class="switch small">
-                    <input id="{{pot.name + '_boil'}}"  value="{{pot.name + '_boil'}}" type="radio" ng-model="$parent.boil" ng-click="updateradio()">
+                    <input id="{{pot.name + '_boil'}}" value="{{pot.name + '_boil'}}" type="radio"
+                           ng-model="$parent.boil" ng-change="updateradio()">
                     <label for="{{pot.name + '_boil'}}">{{pot.name}}</label>
                     Boil
                 </div>
@@ -91,26 +27,21 @@
         </li>
 
 
-
     </ul>
     <div id="slider-container">
-    <slider
-            ng-init="boilRate = 80"
-            ng-model="boilRate"
-            ng-show="boil | endsWith: '_boil'"
-            floor=0
-            ceiling=100
-            step=10
-            >
-    </slider>
+        <slider
+                ng-init="boilRate = 80"
+                ng-model="boilRate"
+                ng-mouseup="submitData()"
+                ng-show="boil | endsWith: '_boil'"
+                floor=0
+                ceiling=100
+                step=10
+                >
+        </slider>
     </div>
 
 
-    <a href="#" class="button expand">Turn Off</a>
-        <input type="submit" value="Update configuration" ng-click="submitData()">
+    <div class="button expand" ng-click="disableAll()">Turn Off</div>
 </form>
-    <script>
-        $(document).foundation();
-        $(window).trigger("resize");
-    </script>
 </body>
