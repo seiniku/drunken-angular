@@ -1,5 +1,9 @@
 'use strict';
 
+angular.module('myApp', ['angular-loading-bar'])
+    .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+      cfpLoadingBarProvider.latencyThreshold = 500;
+    }]);
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
   'ngRoute',
@@ -7,7 +11,8 @@ angular.module('myApp', [
   'myApp.view2',
   'myApp.version',
   'vr.directives.slider',
-  'angular.filter'
+  'angular.filter',
+  'angular-loading-bar'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/view1'});

@@ -56,7 +56,7 @@
     "pid_Kc": 25,
     "pid_Td": 1,
     "pid_Ti": 50,
-    "state": "disabled",
+    "state": "monitor",
     "target": "380",
     "temp": "60.4616",
     "temp_offset": 0,

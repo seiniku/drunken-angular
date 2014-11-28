@@ -12,6 +12,7 @@
     "angular-mocks": "~1.2.x",
     "html5-boilerplate": "~4.3.0",
     "venturocket-angular-slider": "0.3.0",
-    "angular-filter": "0.5.1"
+    "angular-filter": "0.5.1",
+    "angular-loading-bar": "0.6.0"
   }
 }

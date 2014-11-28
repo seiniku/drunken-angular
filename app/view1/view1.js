@@ -13,7 +13,8 @@ angular.module('myApp.view1', ['ngRoute'])
     .controller("PotsCtrl", function ($scope, $http, $timeout, $log) {
         $scope.pots = null;
         var getjson = function () {
-            $http.jsonp('http://192.168.1.4/latest?callback=JSON_CALLBACK').
+            $http.jsonp('http://192.168.1.4/latest?callback=JSON_CALLBACK', {  ignoreLoadingBar: true
+            }).
             //$http.get('view1/test.json').
                 success(function (data) {
                     $scope.pots = data;
@@ -47,6 +48,24 @@ angular.module('myApp.view1', ['ngRoute'])
         //    $(window).resize();
         //});
 
+
+        function postIt(data){
+            $http({
+                method: 'POST',
+                url: 'http://192.168.1.4/configure',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                transformRequest: function(obj) {
+                    var str = [];
+                    for(var p in obj)
+                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    return str.join("&");
+                },
+                data: data
+            })
+
+
+        }
+
         $scope.submitData = function () {
             if (!angular.isDefined($scope.boil)) {
                 $log.err("boil is undefined");
@@ -64,13 +83,17 @@ angular.module('myApp.view1', ['ngRoute'])
                     } else if (whichStatus == "168") {
                         data[pot + "_target"] = 168;
                     }
+                    data[pot + "_state"] = "control";
+
                 }
                 else {
                     data[pot + "_target"] = 0;
+                    data[pot + "_state"] = "monitor";
                 }
             }
             $log.warn($scope.boil);
             $log.warn(data);
+            postIt(data);
 
 
         };
@@ -80,15 +103,20 @@ angular.module('myApp.view1', ['ngRoute'])
             $scope.submitData();
         };
 
-        $scope.disableAll = function () {
+        $scope.toggle = function (on) {
             var pot;
             var data = {};
+            var state;
+            if (on){state = "monitor"}
+            else {state = "disabled"}
             for (pot in $scope.pots){
                 data[pot + "_target"] = 0;
-                data[pot + "_state"] = "disabled";
+                data[pot + "_state"] = state;
             }
             $scope.boil = null;
+            postIt(data);
         };
+
         getjson()
 
     });
