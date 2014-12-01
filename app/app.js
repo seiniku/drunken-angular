@@ -9,7 +9,6 @@ angular.module('myApp', [
   'angular.filter',
   'angular-loading-bar'
 ]).
-config(['$routeProvider', function($routeProvider) {
+config(['$routeProvider', function($routeProvider, $locationProvider) {
   $routeProvider.otherwise({redirectTo: '/view1'});
-
-}]);
+    }]);

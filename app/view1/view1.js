@@ -25,6 +25,7 @@ angular.module('myApp.view1', ['ngRoute'])
                         }
                         else {
                             $scope.isDisabled = false;
+                            //TODO: update boil config status here
                             break;
                         }
                     }

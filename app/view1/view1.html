@@ -10,9 +10,8 @@
                 <h1>{{pot.temp | number : 1}}</h1>
 
                 <div class="switch small">
-
                     <input id="{{pot.name + '_168'}}" value="{{pot.name + '_168'}}" type="radio" ng-model="$parent.boil"
-                           ng-change="updateradio()">
+                           ng-change="updateradio()" >
                     <label for="{{pot.name + '_168'}}">{{pot.name}}</label>
                     168
                 </div>
