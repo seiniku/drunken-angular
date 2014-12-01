@@ -9,6 +9,8 @@ angular.module('myApp', [
   'angular.filter',
   'angular-loading-bar'
 ]).
-config(['$routeProvider', function($routeProvider, $locationProvider) {
+config(['$routeProvider','$locationProvider', function($routeProvider, $locationProvider) {
+      $locationProvider.html5Mode(true);
+
   $routeProvider.otherwise({redirectTo: '/view1'});
     }]);
