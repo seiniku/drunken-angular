@@ -66,7 +66,7 @@ angular.module('myApp.control', ['ngRoute'])
                     return str.join("&");
                 },
                 data: data,
-                timeout: 3500
+                timeout: 10000
             }).
                 success(function () {
                     $scope.missedPut = false;
