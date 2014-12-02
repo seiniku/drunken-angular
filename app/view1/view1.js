@@ -15,7 +15,7 @@ angular.module('myApp.control', ['ngRoute'])
         var getjson = function () {
             $http.jsonp('http://192.168.1.4/latest?callback=JSON_CALLBACK', {
                 ignoreLoadingBar: true,
-                timeout: 1500
+                timeout: 3500
             }).
             //$http.get('view1/test.json').
                 success(function (data) {
@@ -66,7 +66,7 @@ angular.module('myApp.control', ['ngRoute'])
                     return str.join("&");
                 },
                 data: data,
-                timeout: 1500
+                timeout: 3500
             }).
                 success(function () {
                     $scope.missedPut = false;
