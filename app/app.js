@@ -12,5 +12,5 @@ angular.module('myApp', [
 config(['$routeProvider','$locationProvider', function($routeProvider, $locationProvider) {
       $locationProvider.html5Mode(true);
 
-  $routeProvider.otherwise({redirectTo: '/view1'});
+  $routeProvider.otherwise({redirectTo: 'view1'});
     }]);
