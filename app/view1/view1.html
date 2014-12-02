@@ -44,5 +44,12 @@
     <div ng-init="isDisabled = true"class="button expand" ng-click="toggle(false)">Turn Off</div>
 </form>
 <div ng-show="isDisabled" class="button expand" ng-click="toggle(true)">Allons-y</div>
-
+<div ng-show="notresponding" data-alert class="alert-box warning">
+    The raspberry pi is not responding to queries.
+    <a href="#" class="close">&times;</a>
+</div>
+<div ng-show="missedPut" data-alert class="alert-box alert">
+    The raspberry pi did not receive the command.
+    <a href="#" class="close">&times;</a>
+</div>
 </body>

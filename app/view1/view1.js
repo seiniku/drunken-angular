@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('myApp.view1', ['ngRoute'])
+angular.module('myApp.control', ['ngRoute'])
 
     .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/view1', {
+        $routeProvider.when('/control', {
             templateUrl: 'view1/view1.html',
             controller: 'PotsCtrl'
         });
@@ -13,10 +13,13 @@ angular.module('myApp.view1', ['ngRoute'])
     .controller("PotsCtrl", function ($scope, $http, $timeout, $log) {
         $scope.pots = null;
         var getjson = function () {
-            $http.jsonp('http://192.168.1.4/latest?callback=JSON_CALLBACK', {  ignoreLoadingBar: true
+            $http.jsonp('http://192.168.1.4/latest?callback=JSON_CALLBACK', {
+                ignoreLoadingBar: true,
+                timeout: 1500
             }).
             //$http.get('view1/test.json').
                 success(function (data) {
+                    $scope.notresponding = false;
                     $scope.pots = data;
                     var pot;
                     for ( pot in $scope.pots){
@@ -32,6 +35,7 @@ angular.module('myApp.view1', ['ngRoute'])
                 }).
                 error(function () {
                     $log.warn('failed to retreive json file');
+                    $scope.notresponding = true;
                 });
             var timer = $timeout(getjson, 2000);
             $scope.$on(
@@ -61,8 +65,16 @@ angular.module('myApp.view1', ['ngRoute'])
                         str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
                     return str.join("&");
                 },
-                data: data
-            })
+                data: data,
+                timeout: 1500
+            }).
+                success(function () {
+                    $scope.missedPut = false;
+                }).
+                error(function () {
+                    $scope.missedPut = true;
+
+                })
 
 
         }
