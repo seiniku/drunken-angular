@@ -22,16 +22,25 @@ angular.module('myApp.control', ['ngRoute'])
                     $scope.notresponding = false;
                     $scope.pots = data;
                     var pot;
-                    for ( pot in $scope.pots){
-                        if ($scope.pots[pot].state == "disabled"){
-                            $scope.isDisabled = true;
+                    var disabled;
+                    for (pot in $scope.pots) {
+                        if ($scope.pots[pot].state == "disabled") {
+                            disabled = true;
                         }
                         else {
-                            $scope.isDisabled = false;
+                            disabled = false;
                             //TODO: update boil config status here
-                            break;
+                            if ($scope.pots[pot].target == 168) {
+                                $scope.boil = pot + "_168";
+                            }
+                            else if ($scope.pots[pot].target >= 300) {
+                                $scope.boil = pot + "_boil";
+                                $scope.boilRate = $scope.pots[pot].target - 300;
+                            }
                         }
-                    }
+                        $scope.isDisabled = disabled;
+                        }
+
                 }).
                 error(function () {
                     $log.warn('failed to retreive json file');
@@ -104,8 +113,8 @@ angular.module('myApp.control', ['ngRoute'])
                     data[pot + "_state"] = "monitor";
                 }
             }
-            $log.warn($scope.boil);
-            $log.warn(data);
+
+
             postIt(data);
 
 
