@@ -1,0 +1,15 @@
+  bomb:
+    band: 0.2
+    cycle_time: 2
+    enabled: 'false'
+    gpio_number: 1
+    name: bomb
+    pid_Kc: 0
+    pid_Td: 0
+    pid_Ti: 0
+    state: disabled
+    target: '0'
+    temp_offset: 0
+    temp_sensor: 28-000004a1c85c
+    usePid: false
+    web_status:

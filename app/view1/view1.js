@@ -29,16 +29,17 @@ angular.module('myApp.control', ['ngRoute'])
                         }
                         if ($scope.pots[pot].state == "control") {
                             disabled = false;
-                            if ($scope.pots[pot].target == 168) {
+                            if ($scope.pots[pot].web_state == 168) {
                                 $scope.boil = pot + "_168";
                             }
-                            else if ($scope.pots[pot].target >= 300) {
+                            else if ($scope.pots[pot].web_state == "boil") {
                                 $scope.boil = pot + "_boil";
                                 $scope.boilRate = $scope.pots[pot].target - 300;
                             }
-                            else if ($scope.pots[pot].target == 0) {
+                            else if ($scope.pots[pot].web_state == "monitor") {
                                 $scope.boil = pot + "_monitor";
-                            } else {
+                            }
+                            else if ($scope.pots[pot].web_state == "custom") {
                                 $scope.boil = pot + "_custom";
                                 $scope.customInput = $scope.pots[pot].target;
                             }
@@ -62,11 +63,6 @@ angular.module('myApp.control', ['ngRoute'])
             );
 
         };
-
-        //$scope.$watch('boil', function (value) {
-        //    $(window).resize();
-        //});
-
 
         function postIt(data){
             $http({
@@ -107,12 +103,16 @@ angular.module('myApp.control', ['ngRoute'])
                 if (whichPot == pot) {
                     if (whichStatus == "boil") {
                         data[pot + "_target"] = 300 + $scope.boilRate;
+                        data[pot + "_web_state"] = "boil";
                     } else if (whichStatus == "168") {
                         data[pot + "_target"] = 168;
+                        data[pot + "_web_state"] = "168";
                     } else if (whichStatus == "monitor") {
                         data[pot + "_target"] = 0;
+                        data[pot + "_web_state"] = "monitor";
                     } else if (whichStatus == "custom") {
                         data[pot + "_target"] = $scope.customInput;
+                        data[pot + "_web_state"] = "custom";
                     }
                     data[pot + "_state"] = "control";
 
@@ -120,6 +120,7 @@ angular.module('myApp.control', ['ngRoute'])
                 else {
                     data[pot + "_target"] = 0;
                     data[pot + "_state"] = "monitor";
+                    data[pot + "_web_state"] = "monitor";
                 }
             }
 
