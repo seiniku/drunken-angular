@@ -21,7 +21,18 @@
                     <label for="{{pot.name + '_boil'}}">{{pot.name}}</label>
                     Boil
                 </div>
-
+                <div class="switch small">
+                    <input id="{{pot.name + '_custom'}}" value="{{pot.name + '_custom'}}" type="radio"
+                           ng-model="$parent.boil" ng-change="updateradio()">
+                    <label for="{{pot.name + '_custom'}}">{{pot.name}}</label>
+                    Custom
+                </div>
+                <div class="switch small">
+                    <input id="{{pot.name + '_monitor'}}" value="{{pot.name + '_monitor'}}" type="radio"
+                           ng-model="$parent.boil" ng-change="updateradio()">
+                    <label for="{{pot.name + '_monitor'}}">{{pot.name}}</label>
+                    Monitor
+                </div>
             </div>
         </li>
 
@@ -31,15 +42,25 @@
         <slider
                 ng-init="boilRate = 80"
                 ng-model="boilRate"
-                ng-mouseup="submitData()"
+                ng-click="submitData()"
                 ng-show="boil | endsWith: '_boil'"
                 floor=0
                 ceiling=100
-                step=10
+                step=5
+                >
+        </slider>
+
+        <slider
+                ng-init="customInput"
+                ng-model="customInput"
+                ng-click="submitData()"
+                ng-show="boil | endsWith: '_custom'"
+                floor=100
+                ceiling=220
+                step=5
                 >
         </slider>
     </div>
-
 
     <div ng-init="isDisabled = true"class="button expand" ng-click="toggle(false)">Turn Off</div>
 </form>
