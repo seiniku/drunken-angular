@@ -138,11 +138,14 @@ angular.module('myApp.control', ['ngRoute'])
             var pot;
             var data = {};
             var state;
-            if (on){state = "monitor"}
+            if (on){
+                webstate = "monitor";
+            }
             else {state = "disabled"}
             for (pot in $scope.pots){
                 data[pot + "_target"] = 0;
                 data[pot + "_state"] = state;
+                data[pot + "_web_state"] = state;
             }
             $scope.boil = null;
             postIt(data);
