@@ -139,7 +139,7 @@ angular.module('myApp.control', ['ngRoute'])
             var data = {};
             var state;
             if (on){
-                webstate = "monitor";
+                state = "monitor";
             }
             else {state = "disabled"}
             for (pot in $scope.pots){
