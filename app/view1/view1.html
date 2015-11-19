@@ -3,7 +3,7 @@
     {{pots[1]}}
     <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-4">
         <li ng-repeat="pot in pots track by pot.name">
-            <div>
+            <div class="grid-block">
                 {{pot.name}}
                 <br/>
 
@@ -11,28 +11,43 @@
 
                 <div class="switch small">
                     <input id="{{pot.name + '_168'}}" value="{{pot.name + '_168'}}" type="radio" ng-model="$parent.boil"
-                           ng-change="updateradio()" >
+                           ng-change="updateradio(pot)" >
                     <label for="{{pot.name + '_168'}}">{{pot.name}}</label>
                     168
                 </div>
                 <div class="switch small">
                     <input id="{{pot.name + '_boil'}}" value="{{pot.name + '_boil'}}" type="radio"
-                           ng-model="$parent.boil" ng-change="updateradio()">
+                           ng-model="$parent.boil" ng-change="updateradio(pot)">
                     <label for="{{pot.name + '_boil'}}">{{pot.name}}</label>
                     Boil
                 </div>
                 <div class="switch small">
-                    <input id="{{pot.name + '_custom'}}" value="{{pot.name + '_custom'}}" type="radio"
-                           ng-model="$parent.boil" ng-change="updateradio()">
-                    <label for="{{pot.name + '_custom'}}">{{pot.name}}</label>
-                    Custom
-                </div>
-                <div class="switch small">
                     <input id="{{pot.name + '_monitor'}}" value="{{pot.name + '_monitor'}}" type="radio"
-                           ng-model="$parent.boil" ng-change="updateradio()">
+                           ng-model="$parent.boil" ng-change="updateradio(pot)">
                     <label for="{{pot.name + '_monitor'}}">{{pot.name}}</label>
                     Monitor
                 </div>
+                <div class="switch small">
+                    <input id="{{pot.name + '_custom'}}" value="{{pot.name + '_custom'}}" type="radio"
+                           ng-model="$parent.boil" ng-change="updateradio(pot)">
+                    <label for="{{pot.name + '_custom'}}">{{pot.name}}</label>
+                    Custom
+                </div>
+
+                <div class="row collapse postfix-radius">
+
+                   
+                    <div class="small-4 columns">
+                        <input id="{{pot.name + '_targetfield'}}" ng-init="pot.target" type="text"
+                               placeholder="fahrenheit" ng-model="pot.target" ng-change="submitData(pot)"
+                               ng-model-options="{ debounce: 500 }">
+                    </div>
+                    <div class="small-3 columns">
+                        <span class="postfix">Target</span>
+                    </div>
+
+                </div>
+
             </div>
         </li>
 
@@ -50,16 +65,7 @@
                 >
         </slider>
 
-        <slider
-                ng-init="customInput"
-                ng-model="customInput"
-                ng-click="submitData()"
-                ng-show="boil | endsWith: '_custom'"
-                floor=100
-                ceiling=220
-                step=5
-                >
-        </slider>
+
     </div>
 
     <div ng-init="isDisabled = true" class="button expand" ng-click="toggle(false)">Turn Off</div>

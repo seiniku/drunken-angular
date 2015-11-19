@@ -43,6 +43,7 @@ angular.module('myApp.control', ['ngRoute'])
                                 $scope.boil = pot + "_custom";
                                 $scope.customInput = $scope.pots[pot].target;
                             }
+                            
                         }
                         $scope.isDisabled = disabled;
                         }
@@ -89,11 +90,12 @@ angular.module('myApp.control', ['ngRoute'])
 
         }
 
-        $scope.submitData = function () {
+        $scope.submitData = function (potter) {
             if (!angular.isDefined($scope.boil)) {
                 $log.err("boil is undefined");
                 return;
             }
+            console.log(potter)
             var data = {};
             var whichIsOn = $scope.boil.split("_");
             var whichStatus = whichIsOn[1];
@@ -111,7 +113,7 @@ angular.module('myApp.control', ['ngRoute'])
                         data[pot + "_target"] = 0;
                         data[pot + "_web_state"] = "monitor";
                     } else if (whichStatus == "custom") {
-                        data[pot + "_target"] = $scope.customInput;
+                        data[pot + "_target"] = potter.target;
                         data[pot + "_web_state"] = "custom";
                     }
                     data[pot + "_state"] = "control";
@@ -129,9 +131,9 @@ angular.module('myApp.control', ['ngRoute'])
 
         };
 
-        $scope.updateradio = function () {
+        $scope.updateradio = function (pot) {
             $scope.$broadcast('refreshSlider');
-            $scope.submitData();
+            $scope.submitData(pot);
         };
 
         $scope.toggle = function (on) {
