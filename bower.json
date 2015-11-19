@@ -15,5 +15,9 @@
     "venturocket-angular-slider": "0.3.0",
     "angular-filter": "0.5.1",
     "angular-loading-bar": "0.6.0"
+  },
+  "resolutions": {
+    "angular-touch": "1.4.x",
+    "angular": "1.4.x"
   }
 }
